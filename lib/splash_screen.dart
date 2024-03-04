@@ -8,20 +8,24 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: Column(
-        children: [
-          Center(
+    return Scaffold(
+      body: AnimatedSplashScreen(
+        splash: Column(
+          children: [
+            SizedBox(
+              height: 300,
               child: LottieBuilder.network(
-                  "https://lottie.host/cca94342-8430-43bf-9102-5c74739359d5/9lKsQl4huj.json")),
-          // child: LottieBuilder.asset(
-          //     "assets/Lottie/Animation - 1709509815008.json"))
-        ],
+                  "https://lottie.host/cca94342-8430-43bf-9102-5c74739359d5/9lKsQl4huj.json"),
+            ),
+            // child: LottieBuilder.asset(
+            //     "assets/Lottie/Animation - 1709512139288.lottie"))
+          ],
+        ),
+        nextScreen: const HomeScreen(),
+        splashIconSize: 300,
+        animationDuration: Durations.long1,
+        splashTransition: SplashTransition.slideTransition,
       ),
-      nextScreen: const HomeScreen(),
-      splashIconSize: 400,
-      animationDuration: Durations.long1,
-      splashTransition: SplashTransition.slideTransition,
     );
   }
 }
