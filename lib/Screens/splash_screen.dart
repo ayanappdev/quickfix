@@ -1,7 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quickfix/home_screen.dart';
+import 'package:quickfix/Screens/Onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -21,7 +21,7 @@ class SplashScreen extends StatelessWidget {
             //     "assets/Lottie/Animation - 1709512139288.lottie"))
           ],
         ),
-        nextScreen: const HomeScreen(),
+        nextScreen: OnboardingScreen(),
         splashIconSize: 300,
         animationDuration: Durations.long1,
         splashTransition: SplashTransition.slideTransition,
