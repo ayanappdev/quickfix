@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quickfix/Screens/login_Screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -28,9 +29,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
   Color whiteColor = Colors.white;
   Color greenColor = Color.fromARGB(220, 69, 76, 70);
+  Color darkgreen = Color.fromARGB(255, 27, 111, 97);
   PageController pageController = PageController();
+  int currentPage = 0;
+  continueMethod() {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        (Route<dynamic> route) => false);
+  }
 
-  continueMethod() {}
+  onChanged(int index) {
+    setState(() {
+      currentPage = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -58,6 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             scrollDirection: Axis.horizontal,
             controller: pageController,
             itemCount: onBoardingData.length,
+            onPageChanged: onChanged,
             itemBuilder: (context, index) {
               return Column(
                 children: [
@@ -80,6 +94,52 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ],
               );
             },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                (currentPage == (onBoardingData.length - 1))
+                    ? Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: darkgreen,
+                            padding: EdgeInsets.all(20),
+                          ),
+                          onPressed: continueMethod,
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                              color: whiteColor,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List<Widget>.generate(onBoardingData.length,
+                            (index) {
+                          return AnimatedContainer(
+                            duration: const Duration(
+                              milliseconds: 200,
+                            ),
+                            height: 10,
+                            width: (index == currentPage) ? 15 : 10,
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: (index == currentPage)
+                                  ? darkgreen
+                                  : Colors.grey,
+                            ),
+                          );
+                        }),
+                      )
+              ],
+            ),
           )
         ],
       ),
