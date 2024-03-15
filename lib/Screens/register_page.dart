@@ -1,25 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:quickfix/Screens/forgot_pw_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  final VoidCallback showRegisterPage;
-  const LoginScreen({super.key, required this.showRegisterPage});
+class RegisterPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const RegisterPage({super.key, required this.showLoginPage});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  //text controllers
+class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
-  }
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -27,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  Future signUp() async {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: const Text(
-                      "Welcome To QuickFix",
+                      "Hello There",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -59,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "you've been missed",
+                    "Register Your Detail Below",
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
@@ -108,26 +100,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Padding(
+                  const Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return ForgotPasswordPage();
-                              }),
-                            );
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 58, 232, 203),
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 58, 232, 203),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -139,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: GestureDetector(
-                      onTap: signIn,
+                      onTap: signUp,
                       child: Container(
                         padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -175,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: 5,
                       ),
                       GestureDetector(
-                        onTap: widget.showRegisterPage,
+                        onTap: widget.showLoginPage,
                         child: Text(
                           "Register Now",
                           style: TextStyle(
