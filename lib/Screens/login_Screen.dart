@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               }),
                             );
                           },
-                          child: Text(
+                          child: const Text(
                             "Forgot Password?",
                             style: TextStyle(
                               color: Color.fromARGB(255, 58, 232, 203),
