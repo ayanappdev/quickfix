@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Not a member?",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
