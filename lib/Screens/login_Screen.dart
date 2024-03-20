@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(top: 15),
                     child: Image.asset(
                       "assets/images/logo.PNG",
                       height: 300,
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
+                    padding: const EdgeInsets.only(top: 5),
                     child: const Text(
                       "Welcome To QuickFix",
                       style: TextStyle(

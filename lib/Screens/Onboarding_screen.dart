@@ -35,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPage = 0;
   continueMethod() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const MainPage()),
+        MaterialPageRoute(builder: (context) => MainPage()),
         (Route<dynamic> route) => false);
   }
 
