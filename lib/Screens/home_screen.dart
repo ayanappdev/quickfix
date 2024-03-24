@@ -22,7 +22,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthService _auth = AuthService(); // Create an AuthService instance
+  final AuthService _auth = AuthService();
+  // Create an AuthService instance
+  bool showLoginPage = true;
+  void toggleScreen() {
+    setState(() {
+      showLoginPage = !showLoginPage;
+    });
+  }
 
   void handleLogout() async {
     try {
@@ -32,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
               builder: (context) => LoginScreen(
-                    showRegisterPage: () {},
+                    showRegisterPage: (toggleScreen),
                   )),
           (Route<dynamic> route) => false);
     } catch (error) {
