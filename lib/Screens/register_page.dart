@@ -166,24 +166,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 58, 232, 203),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: InkWell(
@@ -235,7 +217,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Text(
                         "Login Now",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 58, 232, 203),
+                          color: Color.fromARGB(255, 58, 142, 232),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

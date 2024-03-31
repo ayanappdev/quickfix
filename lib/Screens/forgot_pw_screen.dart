@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -9,24 +10,60 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailController = TextEditingController();
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text("Password link shared! Kindly check your Email"),
+            );
+          });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(e.message.toString()),
+            );
+          });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 27, 111, 97),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), // Back arrow icon
+          onPressed: () {
+            Navigator.pop(
+              context,
+            ); // Navigate back when pressed
+          },
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
+          const Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Text(
               "Enter your email and we will send you a password reset link",
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -51,9 +88,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             height: 10,
           ),
           MaterialButton(
-            onPressed: () {},
-            child: Text("Reset Password"),
-            color: Color.fromARGB(105, 27, 111, 97),
+            onPressed: () {
+              passwordReset();
+            },
+            child: Text(
+              "Reset Password",
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Color.fromARGB(255, 27, 111, 97),
           )
         ],
       ),

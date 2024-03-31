@@ -130,6 +130,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordPage()));
+                        },
+                        child: const Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 58, 142, 232),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
                     onTap: () => signIn(context), // Call signIn method
                     child: Container(
@@ -180,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Register Now",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 58, 232, 203),
+                          color: Color.fromARGB(255, 58, 142, 232),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
