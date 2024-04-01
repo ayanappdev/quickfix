@@ -45,7 +45,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 27, 111, 97),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Back arrow icon
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ), // Back arrow icon
           onPressed: () {
             Navigator.pop(
               context,
