@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickfix/Screens/hiddendrawer_screen.dart';
 import 'package:quickfix/Screens/home_screen.dart';
 import 'package:quickfix/auth/auth_page.dart';
 
@@ -30,7 +31,7 @@ class _MainPageState extends State<MainPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             // User is logged in, show HomeScreen
-            return HomeScreen();
+            return HiddenDrawer();
           } else {
             // User is not logged in, show AuthPage
             return AuthPage();
