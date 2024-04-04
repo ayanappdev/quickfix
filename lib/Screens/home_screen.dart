@@ -129,16 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed:
-                  handleLogout, // Call the handleLogout function for logout action
-              icon: const Icon(Icons.exit_to_app),
-              tooltip: 'Logout',
-            ),
-          ],
-        ),
+        // appBar: AppBar(
+        //   actions: [
+        //     IconButton(
+        //       onPressed:
+        //           handleLogout, // Call the handleLogout function for logout action
+        //       icon: const Icon(Icons.exit_to_app),
+        //       tooltip: 'Logout',
+        //     ),
+        //   ],
+        // ),
         body: const Center(child: Text("Home")));
   }
 }

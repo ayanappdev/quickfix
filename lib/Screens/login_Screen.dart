@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickfix/Screens/forgot_pw_screen.dart';
-import 'package:quickfix/Screens/home_screen.dart';
+import 'package:quickfix/Screens/hiddendrawer_screen.dart';
+// import 'package:quickfix/Screens/home_screen.dart';
 import 'package:quickfix/Screens/register_page.dart'; // Import RegisterScreen
 
 class LoginScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => HiddenDrawer()));
     } on FirebaseAuthException catch (e) {
       print('Failed to sign in: $e');
       // Handle different sign-in errors here
