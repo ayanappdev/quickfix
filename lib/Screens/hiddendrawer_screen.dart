@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:quickfix/Screens/home_screen.dart';
 import 'package:quickfix/Screens/login_Screen.dart';
 import 'package:quickfix/Screens/profilesetting-screen.dart';
 
 class HiddenDrawer extends StatefulWidget {
-  const HiddenDrawer({super.key});
+  const HiddenDrawer({Key? key}) : super(key: key);
 
   @override
   State<HiddenDrawer> createState() => _HiddenDrawerState();
@@ -14,8 +13,8 @@ class HiddenDrawer extends StatefulWidget {
 
 class _HiddenDrawerState extends State<HiddenDrawer> {
   final AuthService _auth = AuthService();
-  // Create an AuthService instance
   bool showLoginPage = true;
+
   void toggleScreen() {
     setState(() {
       showLoginPage = !showLoginPage;
@@ -25,16 +24,15 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   void handleLogout() async {
     try {
       await _auth.signOut();
-      // After successful logout, navigate to the login screen (or another appropriate screen)
-      // Assuming you have a login route
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                    showRegisterPage: (toggleScreen),
-                  )),
-          (Route<dynamic> route) => false);
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(
+            showRegisterPage: toggleScreen,
+          ),
+        ),
+        (Route<dynamic> route) => false,
+      );
     } catch (error) {
-      // Handle any logout errors gracefully
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error logging out: $error'),
@@ -49,6 +47,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +55,6 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       ScreenHiddenDrawer(
         ItemHiddenMenu(
           name: "HomePage",
-          // colorLineSelected: Colors.orange,
           baseStyle: myTextStyle,
           selectedStyle: TextStyle(),
           colorLineSelected: Color.fromARGB(255, 27, 111, 97),
@@ -79,7 +77,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           selectedStyle: TextStyle(),
           colorLineSelected: Color.fromARGB(255, 27, 111, 97),
         ),
-        ProfileSetting(),
+        LogoutScreen(handleLogout: handleLogout),
       ),
     ];
   }
@@ -100,5 +98,17 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
       styleAutoTittleName:
           TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     );
+  }
+}
+
+class LogoutScreen extends StatelessWidget {
+  final Function handleLogout;
+
+  const LogoutScreen({Key? key, required this.handleLogout}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    handleLogout();
+    return Container();
   }
 }
