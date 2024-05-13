@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickfix/Screens/forgot_pw_screen.dart';
 import 'package:quickfix/Screens/hiddendrawer_screen.dart';
 // import 'package:quickfix/Screens/home_screen.dart';
-import 'package:quickfix/Screens/register_page.dart'; // Import RegisterScreen
+import 'package:quickfix/Screens/register_page.dart';
+import 'package:quickfix/Widgets/bottomNavigation.dart'; // Import RegisterScreen
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -35,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HiddenDrawer()));
+          context, MaterialPageRoute(builder: (context) => BottomNavigation()));
     } on FirebaseAuthException catch (e) {
       print('Failed to sign in: $e');
       // Handle different sign-in errors here

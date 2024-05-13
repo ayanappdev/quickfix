@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:quickfix/Screens/home_screen.dart';
 import 'package:quickfix/Screens/login_Screen.dart';
+import 'package:quickfix/Screens/profile_screen.dart';
 import 'package:quickfix/Screens/profilesetting-screen.dart';
 
 class HiddenDrawer extends StatefulWidget {
@@ -68,7 +69,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           selectedStyle: TextStyle(),
           colorLineSelected: Color.fromARGB(255, 27, 111, 97),
         ),
-        ProfileSetting(),
+        ProfileScreen(),
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
