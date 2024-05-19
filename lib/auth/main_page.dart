@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:quickfix/Screens/hiddendrawer_screen.dart';
-import 'package:quickfix/Screens/home_screen.dart';
+import 'package:quickfix/Widgets/hiddendrawer_screen.dart';
+import 'package:quickfix/Screens/Home_Screen/home_screen.dart';
 import 'package:quickfix/auth/auth_page.dart';
 
 class MainPage extends StatefulWidget {

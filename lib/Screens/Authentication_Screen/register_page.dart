@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:quickfix/Screens/login_Screen.dart';
+import 'package:quickfix/Screens/Authentication_Screen/login_Screen.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;

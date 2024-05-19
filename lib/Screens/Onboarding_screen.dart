@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quickfix/Screens/login_Screen.dart';
+import 'package:quickfix/Screens/Authentication_Screen/login_Screen.dart';
 import 'package:quickfix/auth/main_page.dart';
 
 class OnboardingScreen extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({super.key});
@@ -6,7 +7,29 @@ class FavouriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("favourite")),
-    );
+        body: Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(children: [
+        IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white,
+            padding: const EdgeInsets.all(15),
+          ),
+          icon: const Icon(Ionicons.chevron_back),
+        ),
+        const Spacer(),
+        IconButton(
+          onPressed: () {},
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.white,
+            padding: const EdgeInsets.all(15),
+          ),
+          icon: const Icon(Ionicons.share_social_outline),
+        ),
+      ]),
+    ));
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
-import 'package:quickfix/Screens/home_screen.dart';
-import 'package:quickfix/Screens/login_Screen.dart';
+import 'package:quickfix/Screens/Category_Screen/category.dart';
+import 'package:quickfix/Screens/Home_Screen/home_screen.dart';
+import 'package:quickfix/Screens/Authentication_Screen/login_Screen.dart';
+import 'package:quickfix/Screens/main_screen.dart';
 import 'package:quickfix/Screens/profile_screen.dart';
 import 'package:quickfix/Screens/profilesetting-screen.dart';
 
@@ -70,6 +72,15 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
           colorLineSelected: Color.fromARGB(255, 27, 111, 97),
         ),
         ProfileScreen(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "Categories",
+          baseStyle: myTextStyle,
+          selectedStyle: TextStyle(),
+          colorLineSelected: Color.fromARGB(255, 27, 111, 97),
+        ),
+        CategoryScreen(),
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
