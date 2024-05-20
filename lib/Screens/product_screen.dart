@@ -62,7 +62,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   });
                 },
                 currentImage: currentImage,
-                image: widget.product.image,
+                imagePaths: widget.product.imagePaths,
               ),
               const SizedBox(height: 10),
               Row(

@@ -25,10 +25,10 @@ class Categories extends StatelessWidget {
                       case 'Brake':
                         route = '/beauty';
                         break;
-                      case 'Chain':
+                      case 'Drivetrain':
                         route = '/pc';
                         break;
-                      case 'Light':
+                      case 'Electrical':
                         route = '/mobile';
                         break;
                       default:

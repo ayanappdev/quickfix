@@ -12,8 +12,9 @@ class Category {
 final List<Category> categories = [
   Category(title: "Tyre", image: "assets/images/tyre.png"),
   Category(title: "Brake", image: "assets/images/brake.png"),
-  Category(title: "Chain", image: "assets/images/chain.png"),
-  Category(title: "Light", image: "assets/images/light.png"),
+  Category(title: "Drivetrain", image: "assets/images/chain.png"),
+  Category(title: "Electrical", image: "assets/images/light.png"),
+  Category(title: "General Maintenance", image: "assets/images/wheel.png"),
 ];
 
 

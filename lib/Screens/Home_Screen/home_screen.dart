@@ -166,15 +166,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Special For You",
+                      "Trending Services",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("See all"),
                     ),
                   ],
                 ),
