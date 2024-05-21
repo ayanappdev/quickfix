@@ -1,20 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:quickfix/Widgets/product_widgets/add_to_cart.dart';
-import 'package:quickfix/Widgets/product_widgets/appbar.dart';
-import 'package:quickfix/Widgets/product_widgets/image_slider.dart';
-import 'package:quickfix/Widgets/product_widgets/information.dart';
-import 'package:quickfix/Widgets/product_widgets/product_desc.dart';
+import 'package:quickfix/widgets/product_widgets/add_to_cart.dart';
+import 'package:quickfix/widgets/product_widgets/appbar.dart';
+import 'package:quickfix/widgets/product_widgets/image_slider.dart';
+import 'package:quickfix/widgets/product_widgets/information.dart';
+import 'package:quickfix/widgets/product_widgets/product_desc.dart';
 import 'package:quickfix/constants.dart';
 import 'package:quickfix/models/product.dart';
-// import 'package:shop_example/constants.dart';
-// import 'package:shop_example/models/product.dart';
-// import 'package:shop_example/widgets/product_widgets/add_to_cart.dart';
-// import 'package:shop_example/widgets/product_widgets/appbar.dart';
-// import 'package:shop_example/widgets/product_widgets/image_slider.dart';
-// import 'package:shop_example/widgets/product_widgets/information.dart';
-// import 'package:shop_example/widgets/product_widgets/product_desc.dart';
 
 class ProductScreen extends StatefulWidget {
   final Product product;
@@ -32,22 +24,6 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kcontentColor,
-      floatingActionButton: AddToCart(
-        currentNumber: currentNumber,
-        onAdd: () {
-          setState(() {
-            currentNumber++;
-          });
-        },
-        onRemove: () {
-          if (currentNumber != 1) {
-            setState(() {
-              currentNumber--;
-            });
-          }
-        },
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -107,56 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   children: [
                     ProductInfo(product: widget.product),
                     const SizedBox(height: 20),
-                    const Text(
-                      "Color",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: List.generate(
-                        widget.product.colors.length,
-                        (index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              currentColor = index;
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            width: 35,
-                            height: 35,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: currentColor == index
-                                  ? Colors.white
-                                  : widget.product.colors[index],
-                              border: currentColor == index
-                                  ? Border.all(
-                                      color: widget.product.colors[index],
-                                    )
-                                  : null,
-                            ),
-                            padding: currentColor == index
-                                ? const EdgeInsets.all(2)
-                                : null,
-                            margin: const EdgeInsets.only(right: 15),
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: widget.product.colors[index],
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    ProductDescription(text: widget.product.description),
+                    ProductDescription(product: widget.product),
                   ],
                 ),
               ),

@@ -4,6 +4,8 @@ import 'package:quickfix/Screens/product_screen.dart';
 import 'package:quickfix/constants.dart';
 import 'package:quickfix/models/product.dart';
 
+// homecreen product cart
+
 class ProductCard extends StatelessWidget {
   final Product product;
   const ProductCard({super.key, required this.product});
@@ -55,7 +57,7 @@ class ProductCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
-                            product.imagePaths[1],
+                            product.imagePaths[0],
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -82,27 +84,27 @@ class ProductCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "\$${product.price}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Row(
-                              children: List.generate(
-                                product.colors.length,
-                                (cindex) => Container(
-                                  height: 15,
-                                  width: 15,
-                                  margin: const EdgeInsets.only(right: 2),
-                                  decoration: BoxDecoration(
-                                    color: product.colors[cindex],
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            // Text(
+                            //   "\$${product.price}",
+                            //   style: const TextStyle(
+                            //     fontWeight: FontWeight.bold,
+                            //     fontSize: 16,
+                            //   ),
+                            // ),
+                            // Row(
+                            //   children: List.generate(
+                            //     product.colors.length,
+                            //     (cindex) => Container(
+                            //       height: 15,
+                            //       width: 15,
+                            //       margin: const EdgeInsets.only(right: 2),
+                            //       decoration: BoxDecoration(
+                            //         color: product.colors[cindex],
+                            //         shape: BoxShape.circle,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ],
@@ -138,115 +140,6 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:ionicons/ionicons.dart';
