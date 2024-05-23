@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickfix/models/product.dart';
 
+//final//
 class SubcategoryList extends StatelessWidget {
   final List<Subcategory> subcategories;
 
