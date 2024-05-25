@@ -19,7 +19,7 @@ class Categories extends StatelessWidget {
                   onTap: () {
                     String route;
                     switch (categories[index].title) {
-                      case 'Tyre':
+                      case 'Wheels & Tires':
                         route = '/shoes';
                         break;
                       case 'Brake':

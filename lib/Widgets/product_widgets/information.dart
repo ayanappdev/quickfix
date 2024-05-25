@@ -16,7 +16,7 @@ class ProductInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Wheels & Tires ",
+          product.categoryTitle,
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

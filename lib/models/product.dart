@@ -19,6 +19,7 @@ class Product {
   final String category;
   final double rate;
   final List<Subcategory> subcategories;
+  final String categoryTitle;
 
   Product({
     required this.title,
@@ -29,12 +30,47 @@ class Product {
     required this.category,
     required this.rate,
     required this.subcategories,
+    required this.categoryTitle,
   });
 }
 
 final List<Product> products = [
   Product(
+    categoryTitle: 'Wheels & Tires',
     title: "Flat Tire & Repair ",
+    description:
+        "Essential TLC for your bike. We tackle chain cleaning & lubrication, tire pressure checks & adjustments, and basic brake inspections. Ensure smooth performance and prevent future problems.",
+    imagePaths: [
+      "assets/images/flattyre.jpg",
+      "assets/images/ft1.jpg",
+      "assets/images/ft2.jpg",
+      "assets/images/ft3.jpg",
+      "assets/images/ft4.jpg",
+    ],
+    price: 120,
+    colors: [
+      Colors.black,
+      Colors.blue,
+      Colors.orange,
+    ],
+    category: "Headphones",
+    rate: 4.8,
+    subcategories: [
+      Subcategory(
+          title: "Flat Tire Repair", description: "Repair of flat tires"),
+      Subcategory(
+          title: "Inner Tube Replacement",
+          description: "Replacement of inner tubes"),
+      Subcategory(
+          title: "Tire Replacement", description: "Full tire replacement"),
+      Subcategory(
+          title: "Wheel Truing & Spoke Tensioning",
+          description: "Adjustment of wheel alignment and spoke tension"),
+    ],
+  ),
+  Product(
+    categoryTitle: 'Electrician',
+    title: "Electrical ",
     description:
         "Essential TLC for your bike. We tackle chain cleaning & lubrication, tire pressure checks & adjustments, and basic brake inspections. Ensure smooth performance and prevent future problems.",
     imagePaths: [

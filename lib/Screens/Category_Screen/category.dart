@@ -21,7 +21,7 @@ class CategoryScreen extends StatelessWidget {
             onTap: () {
               String route;
               switch (categories[index].title) {
-                case 'Shoes':
+                case 'Wheels & Tires':
                   route = '/shoes';
                   break;
                 case 'Beauty':
