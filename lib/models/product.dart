@@ -69,16 +69,16 @@ final List<Product> products = [
     ],
   ),
   Product(
-    categoryTitle: 'Electrician',
-    title: "Electrical ",
+    categoryTitle: 'Electrical',
+    title: "Light Repair & Replacement ",
     description:
-        "Essential TLC for your bike. We tackle chain cleaning & lubrication, tire pressure checks & adjustments, and basic brake inspections. Ensure smooth performance and prevent future problems.",
+        "Keep your bike's lights shining bright. We handle repairs and replacements for headlights, taillights, and brake lights. Ensure safe nighttime visibility.",
     imagePaths: [
-      "assets/images/flattyre.jpg",
-      "assets/images/ft1.jpg",
-      "assets/images/ft2.jpg",
-      "assets/images/ft3.jpg",
-      "assets/images/ft4.jpg",
+      "assets/images/el1.jpg",
+      "assets/images/el2.jpg",
+      "assets/images/el3.jpg",
+      "assets/images/el4.jpg",
+      "assets/images/el5.jpg",
     ],
     price: 120,
     colors: [
@@ -86,21 +86,86 @@ final List<Product> products = [
       Colors.blue,
       Colors.orange,
     ],
-    category: "Headphones",
+    category: "Electrical",
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Flat Tire Repair", description: "Repair of flat tires"),
+          title: "Light Repair & Replacement", description: "Fix flickering lights or upgrade with new ones for optimal nighttime visibility."),
       Subcategory(
-          title: "Inner Tube Replacement",
-          description: "Replacement of inner tubes"),
+          title: "Battery Replacement",
+          description: " Ensure reliable power with a fresh battery replacement. "),
       Subcategory(
-          title: "Tire Replacement", description: "Full tire replacement"),
-      Subcategory(
-          title: "Wheel Truing & Spoke Tensioning",
-          description: "Adjustment of wheel alignment and spoke tension"),
+          title: "Wiring Check & Repair", description: " Diagnose and fix electrical wiring issues to keep your bike's lights functioning properly."),
+     
     ],
+    
   ),
+   Product(
+    categoryTitle: 'Brakes',
+    title: "Light Repair & Replacement ",
+    description:
+        "Keep your bike's lights shining bright. We handle repairs and replacements for headlights, taillights, and brake lights. Ensure safe nighttime visibility.",
+    imagePaths: [
+      "assets/images/el1.jpg",
+      "assets/images/el2.jpg",
+      "assets/images/el3.jpg",
+      "assets/images/el4.jpg",
+      "assets/images/el5.jpg",
+    ],
+    price: 120,
+    colors: [
+      Colors.black,
+      Colors.blue,
+      Colors.orange,
+    ],
+    category: "Brakes",
+    rate: 4.8,
+    subcategories: [
+      Subcategory(
+          title: "Light Repair & Replacement", description: "Fix flickering lights or upgrade with new ones for optimal nighttime visibility."),
+      Subcategory(
+          title: "Battery Replacement",
+          description: " Ensure reliable power with a fresh battery replacement. "),
+      Subcategory(
+          title: "Wiring Check & Repair", description: " Diagnose and fix electrical wiring issues to keep your bike's lights functioning properly."),
+     
+    ],
+    
+  ),
+  Product(
+    categoryTitle: 'Drivetrain',
+    title: "Light Repair & Replacement ",
+    description:
+        "Keep your bike's lights shining bright. We handle repairs and replacements for headlights, taillights, and brake lights. Ensure safe nighttime visibility.",
+    imagePaths: [
+      "assets/images/el1.jpg",
+      "assets/images/el2.jpg",
+      "assets/images/el3.jpg",
+      "assets/images/el4.jpg",
+      "assets/images/el5.jpg",
+    ],
+    price: 120,
+    colors: [
+      Colors.black,
+      Colors.blue,
+      Colors.orange,
+    ],
+    category: "Drivetrain",
+    rate: 4.8,
+    subcategories: [
+      Subcategory(
+          title: "Light Repair & Replacement", description: "Fix flickering lights or upgrade with new ones for optimal nighttime visibility."),
+      Subcategory(
+          title: "Battery Replacement",
+          description: " Ensure reliable power with a fresh battery replacement. "),
+      Subcategory(
+          title: "Wiring Check & Repair", description: " Diagnose and fix electrical wiring issues to keep your bike's lights functioning properly."),
+     
+    ],
+    
+  ),
+  
+  
 ];
 
 

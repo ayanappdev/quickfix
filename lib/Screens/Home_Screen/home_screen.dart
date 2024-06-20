@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                   ),
-                  itemCount: products.length,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return ProductCard(product: products[index]);
                   },

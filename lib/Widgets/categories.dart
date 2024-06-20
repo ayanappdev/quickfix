@@ -1,6 +1,8 @@
 // categories.dart
 import 'package:flutter/material.dart';
+import 'package:quickfix/Screens/product_screen.dart';
 import 'package:quickfix/models/category.dart';
+import 'package:quickfix/models/product.dart';
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
@@ -17,24 +19,29 @@ class Categories extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    String route;
+                    Product selectedProduct;
                     switch (categories[index].title) {
                       case 'Wheels & Tires':
-                        route = '/shoes';
-                        break;
-                      case 'Brake':
-                        route = '/beauty';
-                        break;
-                      case 'Drivetrain':
-                        route = '/pc';
+                        selectedProduct = products[0];
                         break;
                       case 'Electrical':
-                        route = '/mobile';
+                        selectedProduct = products[1];
                         break;
+                         case 'Brake':
+                        selectedProduct = products[2];
+                        break;
+                         case 'Drivetrain':
+                        selectedProduct = products[3];
+                        break;
+                      // Add more cases as needed for other categories
                       default:
-                        route = '/';
+                        selectedProduct = products[0];
                     }
-                    Navigator.pushNamed(context, route);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductScreen(product: selectedProduct),
+                      ),
+                    );
                   },
                   child: Column(
                     children: [
@@ -43,16 +50,13 @@ class Categories extends StatelessWidget {
                         width: 60, // Container size
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 42, 115,
-                              80), // Background color of the container
+                          color: Color.fromARGB(255, 42, 115, 80), // Background color of the container
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(
-                              8.0), // Padding for the image
+                          padding: const EdgeInsets.all(8.0), // Padding for the image
                           child: Image.asset(
                             categories[index].image,
-                            fit: BoxFit
-                                .contain, // Ensure the image fits within the container
+                            fit: BoxFit.contain, // Ensure the image fits within the container
                           ),
                         ),
                       ),
