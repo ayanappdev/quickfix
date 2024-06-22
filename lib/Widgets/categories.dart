@@ -33,6 +33,18 @@ class Categories extends StatelessWidget {
                          case 'Drivetrain':
                         selectedProduct = products[3];
                         break;
+                         case 'General Maintenance':
+                        selectedProduct = products[4];
+                        break;
+                          case 'Components':
+                        selectedProduct = products[5];
+                        break;
+                         case 'Safety':
+                        selectedProduct = products[6];
+                        break;
+                         case 'Accessories':
+                        selectedProduct = products[7];
+                        break;
                       // Add more cases as needed for other categories
                       default:
                         selectedProduct = products[0];

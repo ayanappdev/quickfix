@@ -48,6 +48,32 @@ class CategoryScreen extends StatelessWidget {
                     orElse: () => products[2],
                   );
                   break;
+                        case 'General Maintenance':
+                  selectedProduct = products.firstWhere(
+                    (product) => product.categoryTitle == 'General Maintenance',
+                    orElse: () => products[2],
+                  );
+                  break;
+                   case 'Components':
+                  selectedProduct = products.firstWhere(
+                    (product) => product.categoryTitle == 'Components',
+                    orElse: () => products[2],
+                  );
+                  break;
+                    case 'Safety':
+                  selectedProduct = products.firstWhere(
+                    (product) => product.categoryTitle == 'Safety',
+                    orElse: () => products[2],
+                  );
+                  break;
+                   case 'Accessories':
+                  selectedProduct = products.firstWhere(
+                    (product) => product.categoryTitle == 'Accessories',
+                    orElse: () => products[2],
+                  );
+                  break;
+                  
+                  
                   
                   
                 // Add more cases here for other categories as needed
