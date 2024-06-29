@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quickfix/Screens/Request%20Service%20Screens/nearest_shops_screen.dart';
 import 'package:quickfix/models/product.dart';
 
 class SubcategoryList extends StatelessWidget {
@@ -66,7 +67,7 @@ class SubcategoryList extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              // Handle requesting a service
+             Navigator.push(context, MaterialPageRoute(builder: (context)=> NearestShopsScreen()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green, // Button color

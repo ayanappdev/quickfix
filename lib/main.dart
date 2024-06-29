@@ -10,9 +10,21 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  ); // Corrected
+  try {
+      await Firebase.initializeApp(
+   options: const FirebaseOptions(
+            apiKey: "AIzaSyANqBAVbgYpao3nK-TIkNdIiK22Pmwnjc4",
+            appId: "1:1054436991649:web:78643b0c5f80ba08d486e0",
+            messagingSenderId: "1054436991649",
+            projectId: "quick-fix-b2d8d")
+  ); 
+  print("successfully connected");
+  } catch (e) {
+    // ignore: prefer_interpolation_to_compose_strings
+debugPrint("Errrorrrrrrrrrrrr ------------->>>>>>> $e");
+
+  }
+
   runApp(const MyApp());
 }
 

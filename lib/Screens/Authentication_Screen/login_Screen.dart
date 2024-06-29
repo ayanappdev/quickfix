@@ -7,8 +7,8 @@ import 'package:quickfix/Screens/Authentication_Screen/register_page.dart';
 import 'package:quickfix/Widgets/bottomNavigation.dart'; // Import RegisterScreen
 
 class LoginScreen extends StatefulWidget {
-  final VoidCallback showRegisterPage;
-  const LoginScreen({Key? key, required this.showRegisterPage})
+  final VoidCallback? showRegisterPage;
+  const LoginScreen({Key? key,  this.showRegisterPage})
       : super(key: key);
 
   @override
