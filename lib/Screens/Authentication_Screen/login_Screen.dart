@@ -20,14 +20,25 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> signIn(BuildContext context) async {
-    try {
-      final UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+  try {
+    final UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+
+    // Fetch the user object after successful login
+    User? user = userCredential.user;
+
+    if (user != null) {
+      String? displayName = user.displayName; // Fetch display name
+
+      // Navigate to HomeScreen or any other screen after login
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HiddenDrawer()),
       );
-      // Navigate to HomeScreen if login is successful
-      print('Signed in successfully!');
+
       // Show a message indicating successful login
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -35,19 +46,27 @@ class _LoginScreenState extends State<LoginScreen> {
           duration: Duration(seconds: 2),
         ),
       );
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HiddenDrawer()));
-    } on FirebaseAuthException catch (e) {
-      print('Failed to sign in: $e');
-      // Handle different sign-in errors here
+    } else {
+      // Handle case where user object is null (should not happen after successful login)
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to sign in: ${e.message}'),
+          content: Text('Failed to retrieve user information.'),
           duration: Duration(seconds: 5),
         ),
       );
     }
+  } on FirebaseAuthException catch (e) {
+    print('Failed to sign in: $e');
+    // Handle different sign-in errors here
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Failed to sign in: ${e.message}'),
+        duration: Duration(seconds: 5),
+      ),
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

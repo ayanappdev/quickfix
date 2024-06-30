@@ -13,14 +13,15 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController(); // New controller for full name
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _fullNameController.dispose(); // Dispose full name controller
     super.dispose();
   }
 
@@ -31,12 +32,16 @@ class _RegisterPageState extends State<RegisterPage> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+
+      // After successful registration, update user profile with full name
+      await userCredential.user!.updateDisplayName(_fullNameController.text.trim());
+
       // Navigate to login page after successful registration
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => LoginScreen(
-                  showRegisterPage: () {},
+                  showRegisterPage: widget.showLoginPage,
                 )),
       );
       print('Account created successfully!');
@@ -117,116 +122,137 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(78, 27, 111, 97),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Password",
-                        ),
-                      ),
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(78, 27, 111, 97),
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: TextField(
-                        controller: _confirmPasswordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Confirm Password",
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: InkWell(
-                    onTap: () => signUp(context),
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Color.fromARGB(255, 27, 111, 97),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(78, 27, 111, 97),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: TextField(
+                            controller: _passwordController,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Password",
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "I'm a member?",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                     const SizedBox(
-                      width: 5,
+                      height: 10,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen(
-                                    showRegisterPage: () {},
-                                  )),
-                        );
-                      },
-                      child: Text(
-                        "Login Now",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 58, 142, 232),
-                          fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(78, 27, 111, 97),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: TextField(
+                            controller: _confirmPasswordController,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Confirm Password",
+                            ),
+                          ),
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(78, 27, 111, 97),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: TextField(
+                            controller: _fullNameController,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Full Name",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: InkWell(
+                        onTap: () => signUp(context),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Color.fromARGB(255, 27, 111, 97),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "I'm a member?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen(
+                                        showRegisterPage: widget.showLoginPage,
+                                      )),
+                            );
+                          },
+                          child: Text(
+                            "Login Now",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 58, 142, 232),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 150,
+                    )
                   ],
                 ),
-                const SizedBox(
-                  height: 150,
-                )
               ],
             ),
           ),
@@ -235,6 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
 
 
 // import 'package:firebase_auth/firebase_auth.dart';
