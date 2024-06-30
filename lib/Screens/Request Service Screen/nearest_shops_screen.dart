@@ -179,6 +179,11 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
                     userLng: userLng,
                     shopLat:shopLat  ,
                     shopLng:shopLng ,
+                    shopName: shop['shopName'],
+                    workerName: shop['workerName'],
+                    phoneNumber: shop['phone'],
+                    mechanicAddress: shop['address'],
+                    
                   )));
                 },
                 child: NearestServiceComponent(

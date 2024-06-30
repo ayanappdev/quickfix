@@ -8,7 +8,18 @@ class GoggleMapScreen extends StatefulWidget {
   final double? userLng;
   final double? shopLat;
   final double? shopLng;
-  const GoggleMapScreen({super.key, this.userLat, this.userLng, this.shopLat, this.shopLng});
+  final String? phoneNumber;
+  final String? mechanicAddress;
+  final String? workerName;
+  final String? shopName;
+
+  const GoggleMapScreen({
+    super.key,
+    this.userLat,
+    this.userLng,
+    this.shopLat,
+    this.shopLng, this.phoneNumber, this.mechanicAddress, this.workerName, this.shopName,
+  });
 
   @override
   State<GoggleMapScreen> createState() => _GoggleMapScreenState();
@@ -18,9 +29,7 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
   late GoogleMapController mapController;
   final Set<Polyline> _polylines = Set<Polyline>();
   final Set<Marker> _markers = {};
-
   final LatLng _center = const LatLng(24.8607, 67.0011);
-  final LatLng _destination = const LatLng(24.9211, 67.100); // Example destination
 
   int durationInSeconds = 0;
   double distanceInMeters = 0.0;
@@ -41,7 +50,6 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
     http.Response response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      print(response.body);
       Map<String, dynamic> data = json.decode(response.body);
 
       if (data.containsKey('features') && data['features'].isNotEmpty) {
@@ -49,12 +57,11 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
         if (segments != null && segments.isNotEmpty) {
           var segment = segments[0];
 
-          // Update the state with the real values
           setState(() {
             durationInSeconds = segment['duration'].round();
             distanceInMeters = segment['distance'];
           });
-          print(durationInSeconds);
+
           List<LatLng> polylinePoints = _extractPolyline(data);
           if (polylinePoints.isNotEmpty) {
             _addPolyline(polylinePoints);
@@ -65,18 +72,15 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
           print('No segments data found');
         }
       } else {
-        print('API Response: ${response.statusCode}');
         print('No routes data found');
       }
     } else {
-      // Handle the error
       print('Failed to fetch route data: ${response.statusCode}');
       print('Response body: ${response.body}');
     }
   }
 
   void _addPolyline(List<LatLng> polylinePoints) {
-    // Clear any existing polylines and markers to avoid duplicates
     setState(() {
       _polylines.clear();
       _markers.clear();
@@ -85,34 +89,30 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
         polylineId: const PolylineId('route1'),
         visible: true,
         points: polylinePoints,
-        color: Color.fromARGB(255, 0, 151, 86),
+        color: const Color.fromARGB(255, 0, 151, 86),
         width: 5,
       ));
 
-      // Add start marker
       _markers.add(Marker(
         markerId: const MarkerId('start'),
-        position: polylinePoints.first, // The first point of the polyline
-        infoWindow: const InfoWindow(title: 'Start', snippet: ''),
+        position: polylinePoints.first,
+        infoWindow: const InfoWindow(title: 'Start'),
       ));
 
-      // Add end marker
       _markers.add(Marker(
         markerId: const MarkerId('end'),
-        position: polylinePoints.last, // The last point of the polyline
-        infoWindow: const InfoWindow(title: 'End', snippet: ''),
-        draggable: true,
+        position: polylinePoints.last,
+        infoWindow: const InfoWindow(title: 'End'),
         icon: BitmapDescriptor.defaultMarkerWithHue(
-            BitmapDescriptor.hueBlue), // Change hue as needed
+          BitmapDescriptor.hueBlue,
+        ),
       ));
     });
   }
 
   List<LatLng> _extractPolyline(Map<String, dynamic> data) {
-    // Extract and decode the polyline from the response
     if (data.containsKey('features') && data['features'].isNotEmpty) {
-      List<dynamic> coordinates =
-          data['features'][0]['geometry']['coordinates'];
+      List<dynamic> coordinates = data['features'][0]['geometry']['coordinates'];
       List<LatLng> polylinePoints = coordinates.map((coord) {
         double lat = coord[1].toDouble();
         double lng = coord[0].toDouble();
@@ -147,6 +147,7 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Quick Fix'),
+        backgroundColor: const Color.fromARGB(255, 45, 131, 95),
       ),
       body: Stack(
         children: <Widget>[
@@ -159,35 +160,206 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
             polylines: _polylines,
             markers: _markers,
           ),
+           Positioned(
+        top: 20,
+        right: 20,
+        child: FloatingActionButton(
+          onPressed: () {
+            mapController.animateCamera(
+              CameraUpdate.newLatLng(
+                LatLng(widget.userLat ?? _center.latitude, widget.userLng ?? _center.longitude),
+              ),
+            );
+          },
+          backgroundColor: const Color.fromARGB(255, 45, 131, 95),
+          child: const Icon(Icons.my_location,color: Colors.white,),
+        ),
+      ),
+          
+        ],
+      ),
+     
+      bottomSheet: _buildBottomSheet(),
+    );
+  }
 
-          Positioned(
-            top: 20,
-            left: 20,
-            child: Card(
-              elevation: 20,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      'Duration: ${formatDuration(durationInSeconds)}',
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+Widget _buildBottomSheet() {
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 10,
+          offset: Offset(0, -2),
+        ),
+      ],
+    ),
+    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0), // Adjust top padding
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.timer, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    'ETA: ${formatDuration(durationInSeconds)}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
-                    Text(
-                      'Distance: ${formatDistance(distanceInMeters)}',
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.directions, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${formatDistance(distanceInMeters)}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Divider(color: Colors.grey[400]), // Add a divider for separation
+        
+        // Shop Name
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.store, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Shop Name',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Mechanic Name
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.person, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Mechanic Name',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Location
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.location_on, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '123 Main Street, City Name',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Phone Number
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 12),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.phone, color: Color.fromARGB(255, 45, 131, 95), size: 24),
+              SizedBox(width: 8),
+              Text(
+                '+1234567890',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Request Button
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.symmetric(vertical: 16),
+          child: ElevatedButton(
+            onPressed: () {
+              // Handle button press
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 45, 131, 95),
+              padding: const EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Request Service',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        
+        // Add more custom information as needed
+        
+      ],
+    ),
+  );
+}
+
+
 }
