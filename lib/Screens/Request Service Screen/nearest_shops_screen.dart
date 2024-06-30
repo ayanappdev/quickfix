@@ -7,6 +7,8 @@ import 'package:quickfix/Screens/Home_Screen/home_screen.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:quickfix/Screens/Request%20Service%20Screen/components/nearest_service_component.dart';
 
+import 'map_screen.dart';
+
 class NearestShopsScreen extends StatefulWidget {
   const NearestShopsScreen({Key? key}) : super(key: key);
 
@@ -136,8 +138,8 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
             return ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                return const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Skeletonizer(
                     child: NearestServiceComponent(
                       shopName: "Loading...",
@@ -146,7 +148,7 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
                       closingHours: "Loading...",
                       duration: "Loading...",
                       distance: "Loading...",
-                      isOpen: false,
+                
                     ),
                   ),
                 );
@@ -157,8 +159,8 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
           final data = snapshot.requireData;
 
           if (data.size == 0) {
-            return Center(
-              child: const Text('No shops available'),
+            return const Center(
+              child: Text('No shops available'),
             );
           }
 
@@ -167,15 +169,27 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
             itemBuilder: (context, index) {
               var shop = data.docs[index].data() as Map<String, dynamic>;
               var routeData = routesData[data.docs[index].id] ?? RouteData(0, 0);
+               double shopLat = (shop['shopLat'] ?? 0).toDouble();
+              double shopLng = (shop['shopLang'] ?? 0).toDouble();
 
-              return NearestServiceComponent(
-                shopName: shop['shopName'] ?? 'Unknown',
-                shopAddress: shop['address'] ?? 'Unknown',
-                openHours: shop['openHours'] ?? 'Unknown',
-                closingHours: shop['closingHours'] ?? 'Unknown',
-                duration: '${routeData.durationInSeconds} seconds',
-                distance: '${routeData.distanceInMeters} meters',
-                isOpen: false, // Replace with logic for open status
+              return InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>  GoggleMapScreen(
+                    userLat:userLat ,
+                    userLng: userLng,
+                    shopLat:shopLat  ,
+                    shopLng:shopLng ,
+                  )));
+                },
+                child: NearestServiceComponent(
+                  shopName: shop['shopName'] ?? 'Unknown',
+                  shopAddress: shop['address'] ?? 'Unknown',
+                  openHours: shop['openHours'] ?? 'Unknown',
+                  closingHours: shop['closingHours'] ?? 'Unknown',
+                  duration: '${routeData.durationInSeconds} seconds',
+                  distance: '${routeData.distanceInMeters} meters',
+               
+                ),
               );
             },
           );

@@ -4,7 +4,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class GoggleMapScreen extends StatefulWidget {
-  const GoggleMapScreen({super.key});
+  final double? userLat;
+  final double? userLng;
+  final double? shopLat;
+  final double? shopLng;
+  const GoggleMapScreen({super.key, this.userLat, this.userLng, this.shopLat, this.shopLng});
 
   @override
   State<GoggleMapScreen> createState() => _GoggleMapScreenState();
@@ -33,7 +37,7 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
 
   Future<void> _getRoute() async {
     String url =
-        'https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248cf73a36d900f4107b41b9fba475237fa&start=${_center.longitude},${_center.latitude}&end=${_destination.longitude},${_destination.latitude}';
+        'https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248cf73a36d900f4107b41b9fba475237fa&start=${widget.userLng},${widget.userLat}&end=${widget.shopLng},${widget.shopLat}';
     http.Response response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {

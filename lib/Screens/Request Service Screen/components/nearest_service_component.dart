@@ -8,7 +8,7 @@ class NearestServiceComponent extends StatelessWidget {
   final String closingHours;
   final String duration;
   final String distance; // Distance in kilometers
-  final bool isOpen;
+
 
   const NearestServiceComponent({
     Key? key,
@@ -18,7 +18,7 @@ class NearestServiceComponent extends StatelessWidget {
     required this.closingHours,
     required this.duration,
     required this.distance,
-    required this.isOpen,
+   
   }) : super(key: key);
 
   @override
@@ -58,18 +58,7 @@ class NearestServiceComponent extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: isOpen ? Colors.green : Colors.red,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      isOpen ? 'Open' : 'Closed',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                 
                 ],
               ),
               SizedBox(height: 5),
