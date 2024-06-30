@@ -1,79 +1,7 @@
-// import 'package:flutter/material.dart';
-// import 'package:quickfix/Screens/login_Screen.dart';
-
-// // AuthService for handling authentication
-// class AuthService {
-//   Future<void> signOut() async {
-//     // Implement your specific logout logic here
-//     // This might involve clearing local storage, tokens, or making an API call
-//     // to your backend for a more secure logout
-
-//     // Example (replace with your actual implementation):
-//     await Future.delayed(const Duration(seconds: 1)); // Simulate logout process
-//     print('Successfully logged out!');
-//   }
-// }
-
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const _HomeScreenBody();
-//   }
-// }
-
-// class _HomeScreenBody extends StatefulWidget {
-//   const _HomeScreenBody({Key? key}) : super(key: key);
-
-//   @override
-//   State<_HomeScreenBody> createState() => _HomeScreenBodyState();
-// }
-
-// class _HomeScreenBodyState extends State<_HomeScreenBody> {
-//   final AuthService _auth = AuthService();
-
-//   Future<void> handleLogout() async {
-//     try {
-//       await _auth.signOut();
-//       // After successful logout, navigate to the login screen (or another appropriate screen)
-//       Navigator.pushAndRemoveUntil(
-//         context,
-//         MaterialPageRoute(
-//             builder: (context) => LoginScreen(showRegisterPage: () {})),
-//         (route) => false,
-//       );
-//     } catch (error) {
-//       // Handle any logout errors gracefully
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Error logging out: $error'),
-//         ),
-//       );
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Home'),
-//         actions: [
-//           IconButton(
-//             icon: const Icon(Icons.exit_to_app),
-//             tooltip: 'Logout',
-//             onPressed: handleLogout,
-//           ),
-//         ],
-//       ),
-//       body: const Center(child: Text("Home")),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quickfix/Widgets/hiddendrawer_screen.dart';
-
 import 'package:quickfix/Screens/Authentication_Screen/login_Screen.dart';
 import 'package:quickfix/Widgets/bottomNavigation.dart';
 import 'package:quickfix/Widgets/categories.dart';
@@ -84,14 +12,27 @@ import 'package:quickfix/Widgets/search_field.dart';
 import 'package:quickfix/constants.dart';
 import 'package:quickfix/models/product.dart';
 
+class LocationPreferences {
+  static const _keyLatitude = 'latitude';
+  static const _keyLongitude = 'longitude';
+
+  Future<void> saveLocation(double latitude, double longitude) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble(_keyLatitude, latitude);
+    await prefs.setDouble(_keyLongitude, longitude);
+  }
+
+  Future<Map<String, double?>> getLocation() async {
+    final prefs = await SharedPreferences.getInstance();
+    final latitude = prefs.getDouble(_keyLatitude);
+    final longitude = prefs.getDouble(_keyLongitude);
+    return {'latitude': latitude, 'longitude': longitude};
+  }
+}
+
 // Assuming you have an AuthService class (or similar) for authentication
 class AuthService {
   Future<void> signOut() async {
-    // Implement your specific logout logic here
-    // This might involve clearing local storage, tokens, or making an API call
-    // to your backend for a more secure logout
-
-    // Example (replace with your actual implementation):
     await Future.delayed(const Duration(seconds: 1)); // Simulate logout process
     print('Successfully logged out!');
   }
@@ -106,8 +47,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final AuthService _auth = AuthService();
-  // Create an AuthService instance
+  final LocationPreferences _locationPrefs = LocationPreferences();
   bool showLoginPage = true;
+  int currentSlide = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
   void toggleScreen() {
     setState(() {
       showLoginPage = !showLoginPage;
@@ -117,8 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void handleLogout() async {
     try {
       await _auth.signOut();
-      // After successful logout, navigate to the login screen (or another appropriate screen)
-      // Assuming you have a login route
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
               builder: (context) => LoginScreen(
@@ -126,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
           (Route<dynamic> route) => false);
     } catch (error) {
-      // Handle any logout errors gracefully
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error logging out: $error'),
@@ -135,7 +81,37 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  int currentSlide = 0;
+  Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    await _locationPrefs.saveLocation(
+        position.latitude, position.longitude);
+    print(
+        'Current position saved: ${position.latitude}, ${position.longitude}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,12 +136,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   currentSlide: currentSlide,
                 ),
                 const SizedBox(height: 20),
-                Categories(),
+                const Categories(),
                 const SizedBox(height: 25),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Trending Services",
                       style: TextStyle(
                         fontSize: 24,

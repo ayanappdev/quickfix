@@ -5,6 +5,7 @@ import 'package:quickfix/Screens/Category_Screen/Mobile_screen.dart';
 import 'package:quickfix/Screens/Category_Screen/Pc_screen.dart';
 import 'package:quickfix/Screens/Category_Screen/Shoes_screen.dart';
 import 'package:quickfix/Screens/Category_Screen/category.dart';
+import 'package:quickfix/Screens/Request%20Service%20Screen/nearest_shops_screen.dart';
 import 'package:quickfix/Screens/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const NearestShopsScreen(),
       routes: {
         '/shoes': (context) => ShoesScreen(),
         '/beauty': (context) => BeautyScreen(),

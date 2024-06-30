@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quickfix/Screens/Request%20Service%20Screens/nearest_shops_screen.dart';
+
+
+
 import 'package:quickfix/models/product.dart';
+
+import '../../Screens/Request Service Screen/nearest_shops_screen.dart';
+
+
 
 class SubcategoryList extends StatelessWidget {
   final List<Subcategory> subcategories;
@@ -22,10 +28,10 @@ class SubcategoryList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8), // Adjusted radius to make it smaller
               ),
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 title: Text(
                   subcategory.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -36,23 +42,23 @@ class SubcategoryList extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Color.fromARGB(255, 0, 151, 86)),
+                        border: Border.all(color: const Color.fromARGB(255, 0, 151, 86)),
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.remove, color: Colors.black),
+                        icon: const Icon(Icons.remove, color: Colors.black),
                         onPressed: () {
                           // Handle removing the service
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: Color.fromARGB(255, 0, 158, 92)),
+                        border: Border.all(color: const Color.fromARGB(255, 0, 158, 92)),
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.add, color: Colors.black),
+                        icon: const Icon(Icons.add, color: Colors.black),
                         onPressed: () {
                           // Handle adding the service
                         },
@@ -63,20 +69,20 @@ class SubcategoryList extends StatelessWidget {
               ),
             ),
           ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Center(
           child: ElevatedButton(
             onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=> NearestShopsScreen()));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=> const NearestShopsScreen()));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green, // Button color
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            child: Text(
+            child: const Text(
               "Request a Service",
               style: TextStyle(
                 fontSize: 16,
