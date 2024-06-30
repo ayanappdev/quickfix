@@ -142,20 +142,25 @@ Future<void> _storeData() async {
 
   // Fetch the current user from Firebase Authentication
   final user = FirebaseAuth.instance.currentUser;
-  
+
   if (user != null) {
-    // User is authenticated, fetch the username
+    // User is authenticated, fetch the username and user ID
     String? userName = user.displayName; // Assuming username is stored in displayName
+    String userId = user.uid; // Get the unique user ID
 
     // Access Firestore collection
-    CollectionReference routes = FirebaseFirestore.instance.collection('requestedorders');
+    CollectionReference userOrders = FirebaseFirestore.instance
+        .collection('requestedorders')
+        .doc(userId) // Use user's UID as document ID
+        .collection('orders'); // Subcollection 'orders' under user's document
 
-    // Add data to Firestore
-    await routes.add({
-      // 'userPhoneNumber': widget.phoneNumber,
+    // Add data to Firestore using .add() to generate a new document ID
+    await userOrders.add({
+      'userId': userId, // Store the user ID
       'userName': userName, // Store the fetched username
       'selectedServices': widget.selectedServices?.map((service) => service.toMap()).toList(),
       'totalPrice': widget.totalPrice,
+      'timestamp': FieldValue.serverTimestamp(), // Add a timestamp field for order time
     }).then((value) {
       Navigator.of(context).pop(); // Close loading dialog
       showSuccessDialog(context); // Show success dialog
@@ -170,6 +175,11 @@ Future<void> _storeData() async {
     print("User not authenticated");
   }
 }
+
+
+
+
+
 
     void showLoadingDialog(BuildContext context) {
       showDialog(
