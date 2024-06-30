@@ -26,7 +26,7 @@ class NearestServiceComponent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14.0),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
@@ -35,7 +35,7 @@ class NearestServiceComponent extends StatelessWidget {
               color: Colors.grey.withOpacity(0.2),
               spreadRadius: 4,
               blurRadius: 10,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -50,7 +50,7 @@ class NearestServiceComponent extends StatelessWidget {
                   Expanded(
                     child: Text(
                       shopName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: Color.fromARGB(255, 0, 151, 86),
@@ -61,7 +61,7 @@ class NearestServiceComponent extends StatelessWidget {
                  
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 shopAddress,
                 style: TextStyle(
@@ -69,25 +69,25 @@ class NearestServiceComponent extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Open: $openHours',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 0, 151, 86)),
                   ),
                   Text(
                     'Close: $closingHours',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 0, 151, 86)),
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -106,21 +106,21 @@ class NearestServiceComponent extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color:Color.fromARGB(255, 0, 151, 86), size: 20),
-        SizedBox(width: 5),
+        Icon(icon, color:const Color.fromARGB(255, 0, 151, 86), size: 20),
+        const SizedBox(width: 5),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Color.fromARGB(255, 0, 151, 86),
                   fontSize: 12,
                   fontWeight: FontWeight.bold),
             ),
             Text(
               value,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 14,
                   color: Color.fromARGB(255, 0, 151, 86),
                   fontWeight: FontWeight.bold),

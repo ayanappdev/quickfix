@@ -1,7 +1,10 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:quickfix/Screens/Request%20Service%20Screen/components/map_bottom_sheet.dart';
+import 'package:quickfix/models/product.dart';
 
 class GoggleMapScreen extends StatefulWidget {
   final double? userLat;
@@ -12,13 +15,21 @@ class GoggleMapScreen extends StatefulWidget {
   final String? mechanicAddress;
   final String? workerName;
   final String? shopName;
+  final List<Subcategory>? selectedServices;
+  final double? totalPrice;
 
   const GoggleMapScreen({
     super.key,
     this.userLat,
     this.userLng,
     this.shopLat,
-    this.shopLng, this.phoneNumber, this.mechanicAddress, this.workerName, this.shopName,
+    this.shopLng,
+    this.phoneNumber,
+    this.mechanicAddress,
+    this.workerName,
+    this.shopName,
+    this.selectedServices,
+    this.totalPrice,
   });
 
   @override
@@ -112,7 +123,8 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
 
   List<LatLng> _extractPolyline(Map<String, dynamic> data) {
     if (data.containsKey('features') && data['features'].isNotEmpty) {
-      List<dynamic> coordinates = data['features'][0]['geometry']['coordinates'];
+      List<dynamic> coordinates =
+          data['features'][0]['geometry']['coordinates'];
       List<LatLng> polylinePoints = coordinates.map((coord) {
         double lat = coord[1].toDouble();
         double lng = coord[0].toDouble();
@@ -122,6 +134,72 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
     } else {
       return [];
     }
+  }
+
+  Future<void> _storeData() async {
+    showLoadingDialog(context); // Show loading dialog
+
+    CollectionReference routes = FirebaseFirestore.instance.collection('requestedorders');
+
+    await routes.add({
+      'userLat': widget.userLat,
+      'userLng': widget.userLng,
+      'shopLat': widget.shopLat,
+      'shopLng': widget.shopLng,
+      'phoneNumber': widget.phoneNumber,
+      'mechanicAddress': widget.mechanicAddress,
+      'workerName': widget.workerName,
+      'shopName': widget.shopName,
+      'selectedServices': widget.selectedServices?.map((service) => service.toMap()).toList(),
+      'totalPrice': widget.totalPrice,
+      'distance': distanceInMeters,
+      'duration': durationInSeconds,
+    }).then((value) {
+      Navigator.of(context).pop(); // Close loading dialog
+      showSuccessDialog(context); // Show success dialog
+      print("Data added successfully");
+    }).catchError((error) {
+      Navigator.of(context).pop(); // Close loading dialog
+      print("Failed to add data: $error");
+    });
+  }
+
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 20),
+              Text("Please wait..."),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Success"),
+          content: Text("Your request has been placed successfully!"),
+          actions: [
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   String formatDuration(int seconds) {
@@ -160,206 +238,38 @@ class _GoggleMapScreenState extends State<GoggleMapScreen> {
             polylines: _polylines,
             markers: _markers,
           ),
-           Positioned(
-        top: 20,
-        right: 20,
-        child: FloatingActionButton(
-          onPressed: () {
-            mapController.animateCamera(
-              CameraUpdate.newLatLng(
-                LatLng(widget.userLat ?? _center.latitude, widget.userLng ?? _center.longitude),
-              ),
-            );
-          },
-          backgroundColor: const Color.fromARGB(255, 45, 131, 95),
-          child: const Icon(Icons.my_location,color: Colors.white,),
-        ),
-      ),
-          
-        ],
-      ),
-     
-      bottomSheet: _buildBottomSheet(),
-    );
-  }
-
-Widget _buildBottomSheet() {
-  return Container(
-    decoration: const BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black26,
-          blurRadius: 10,
-          offset: Offset(0, -2),
-        ),
-      ],
-    ),
-    padding: const EdgeInsets.fromLTRB(16, 16, 16, 0), // Adjust top padding
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  const Icon(Icons.timer, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ETA: ${formatDuration(durationInSeconds)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+          Positioned(
+            top: 20,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                mapController.animateCamera(
+                  CameraUpdate.newLatLng(
+                    LatLng(widget.userLat ?? _center.latitude,
+                        widget.userLng ?? _center.longitude),
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  const Icon(Icons.directions, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-                  const SizedBox(width: 8),
-                  Text(
-                    '${formatDistance(distanceInMeters)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Divider(color: Colors.grey[400]), // Add a divider for separation
-        
-        // Shop Name
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.store, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Shop Name',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-        
-        // Mechanic Name
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.person, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Mechanic Name',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-        
-        // Location
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.location_on, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  '123 Main Street, City Name',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black87,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-        
-        // Phone Number
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: <Widget>[
-              Icon(Icons.phone, color: Color.fromARGB(255, 45, 131, 95), size: 24),
-              SizedBox(width: 8),
-              Text(
-                '+1234567890',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-        ),
-        
-        // Request Button
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 16),
-          child: ElevatedButton(
-            onPressed: () {
-              // Handle button press
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color.fromARGB(255, 45, 131, 95),
-              padding: const EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: const Text(
-              'Request Service',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                );
+              },
+              backgroundColor: const Color.fromARGB(255, 45, 131, 95),
+              child: const Icon(
+                Icons.my_location,
                 color: Colors.white,
               ),
             ),
           ),
-        ),
-        
-        // Add more custom information as needed
-        
-      ],
-    ),
-  );
-}
-
-
+        ],
+      ),
+      bottomSheet: MapBottomSheet(
+        distance: '${formatDistance(distanceInMeters)}',
+        duration: "ETA: ${formatDuration(durationInSeconds)}",
+        shopName: widget.shopName!,
+        mechanicName: widget.workerName!,
+        address: widget.mechanicAddress!,
+        phoneNumber: widget.phoneNumber!,
+        onPressed: () {
+          _storeData();
+        },
+      ),
+    );
+  }
 }

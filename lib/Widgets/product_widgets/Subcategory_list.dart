@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-
-
-
 import 'package:quickfix/models/product.dart';
-
 import '../../Screens/Request Service Screen/nearest_shops_screen.dart';
 
-
-
-class SubcategoryList extends StatelessWidget {
+class SubcategoryList extends StatefulWidget {
   final List<Subcategory> subcategories;
 
-  const SubcategoryList({Key? key, required this.subcategories})
-      : super(key: key);
+  const SubcategoryList({Key? key, required this.subcategories}) : super(key: key);
+
+  @override
+  _SubcategoryListState createState() => _SubcategoryListState();
+}
+
+class _SubcategoryListState extends State<SubcategoryList> {
+  final List<Subcategory> selectedServices = [];
 
   @override
   Widget build(BuildContext context) {
+    double totalPrice = selectedServices.fold(0, (sum, service) => sum + service.price);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var subcategory in subcategories)
+        for (var subcategory in widget.subcategories)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
@@ -47,7 +49,14 @@ class SubcategoryList extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.remove, color: Colors.black),
                         onPressed: () {
-                          // Handle removing the service
+                          setState(() {
+                            selectedServices.remove(subcategory);
+                            // Print the updated list to the debug console
+                            print("Selected Services:");
+                            selectedServices.forEach((service) {
+                              print("${service.title}: ${service.price}");
+                            });
+                          });
                         },
                       ),
                     ),
@@ -60,7 +69,14 @@ class SubcategoryList extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.add, color: Colors.black),
                         onPressed: () {
-                          // Handle adding the service
+                          setState(() {
+                            selectedServices.add(subcategory);
+                            // Print the updated list to the debug console
+                            print("Selected Services:");
+                            selectedServices.forEach((service) {
+                              print("${service.title}: ${service.price}");
+                            });
+                          });
                         },
                       ),
                     ),
@@ -70,27 +86,51 @@ class SubcategoryList extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 20),
-        Center(
-          child: ElevatedButton(
-            onPressed: () {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=> const NearestShopsScreen()));
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green, // Button color
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NearestShopsScreen(
+                              selectedServices: selectedServices,
+                              totalPrice: totalPrice,
+                            )));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Button color
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: const Text(
+                "Request a Service",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-            child: const Text(
-              "Request a Service",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            const SizedBox(width: 5),
+            FloatingActionButton(
+              onPressed: () {
+         
+              },
+             
+              child: Text(
+                                totalPrice.toString(),
+                // "Total Price: $totalPrice PKR (${selectedServices.length})",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ],
     );

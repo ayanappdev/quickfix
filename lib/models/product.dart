@@ -3,12 +3,23 @@ import 'package:flutter/material.dart';
 class Subcategory {
   final String title;
   final String description;
+  final double price;
 
   Subcategory({
     required this.title,
     required this.description,
+    required this.price,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+    };
+  }
 }
+
 
 class Product {
   final String title;
@@ -37,9 +48,8 @@ class Product {
 final List<Product> products = [
   Product(
     categoryTitle: 'Wheels & Tires',
-    title: "Flat Tire & Repair ",
-    description:
-        "Essential TLC for your bike. We tackle chain cleaning & lubrication, tire pressure checks & adjustments, and basic brake inspections. Ensure smooth performance and prevent future problems.",
+    title: "Flat Tire & Repair",
+    description: "Essential TLC for your bike. We tackle chain cleaning & lubrication, tire pressure checks & adjustments, and basic brake inspections. Ensure smooth performance and prevent future problems.",
     imagePaths: [
       "assets/images/flattyre.jpg",
       "assets/images/ft1.jpg",
@@ -57,22 +67,19 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Flat Tire Repair", description: "Repair of flat tires"),
+          title: "Flat Tire Repair", description: "Repair of flat tires", price: 600),
       Subcategory(
-          title: "Inner Tube Replacement",
-          description: "Replacement of inner tubes"),
+          title: "Inner Tube Replacement", description: "Replacement of inner tubes", price: 800),
       Subcategory(
-          title: "Tire Replacement", description: "Full tire replacement"),
+          title: "Tire Replacement", description: "Full tire replacement", price: 1200),
       Subcategory(
-          title: "Wheel Truing & Spoke Tensioning",
-          description: "Adjustment of wheel alignment and spoke tension"),
+          title: "Wheel Truing & Spoke Tensioning", description: "Adjustment of wheel alignment and spoke tension", price: 1000),
     ],
   ),
   Product(
     categoryTitle: 'Electrical',
-    title: "Light Repair & Replacement ",
-    description:
-        "Keep your bike's lights shining bright. We handle repairs and replacements for headlights, taillights, and brake lights. Ensure safe nighttime visibility.",
+    title: "Light Repair & Replacement",
+    description: "Keep your bike's lights shining bright. We handle repairs and replacements for headlights, taillights, and brake lights. Ensure safe nighttime visibility.",
     imagePaths: [
       "assets/images/el1.jpg",
       "assets/images/el2.jpg",
@@ -90,21 +97,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Light Repair & Replacement", description: "Fix flickering lights or upgrade with new ones for optimal nighttime visibility."),
+          title: "Light Repair & Replacement", description: "Fix flickering lights or upgrade with new ones for optimal nighttime visibility.", price: 700),
       Subcategory(
-          title: "Battery Replacement",
-          description: " Ensure reliable power with a fresh battery replacement. "),
+          title: "Battery Replacement", description: "Ensure reliable power with a fresh battery replacement.", price: 900),
       Subcategory(
-          title: "Wiring Check & Repair", description: " Diagnose and fix electrical wiring issues to keep your bike's lights functioning properly."),
-     
+          title: "Wiring Check & Repair", description: "Diagnose and fix electrical wiring issues to keep your bike's lights functioning properly.", price: 850),
     ],
-    
   ),
-   Product(
+  Product(
     categoryTitle: 'Brakes',
-    title: "Brake Pad Replacement ",
-    description:
-        "Maintain optimal stopping power for safe riding. We offer services to keep your brakes functioning smoothly.",
+    title: "Brake Pad Replacement",
+    description: "Maintain optimal stopping power for safe riding. We offer services to keep your brakes functioning smoothly.",
     imagePaths: [
       "assets/images/bk1.jpg",
       "assets/images/bk2.jpg",
@@ -122,21 +125,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Brake Pad Replacement", description: "New pads for reliable stopping power."),
+          title: "Brake Pad Replacement", description: "New pads for reliable stopping power.", price: 600),
       Subcategory(
-          title: "Brake Caliper Adjustment & Repair",
-          description: " Ensure proper brake engagement."),
+          title: "Brake Caliper Adjustment & Repair", description: "Ensure proper brake engagement.", price: 750),
       Subcategory(
-          title: "Hydraulic Brake Service ", description: "  Maintain fluid levels & system function"),
-     
+          title: "Hydraulic Brake Service", description: "Maintain fluid levels & system function.", price: 950),
     ],
-    
   ),
   Product(
     categoryTitle: 'Drivetrain',
-    title: "Light Repair & Replacement ",
-    description:
-        "Keep your gears shifting smoothly. We service chains, cassettes, and bottom brackets.",
+    title: "Chain Repair & Replacement",
+    description: "Keep your gears shifting smoothly. We service chains, cassettes, and bottom brackets.",
     imagePaths: [
       "assets/images/dr1.jpg",
       "assets/images/dr2.jpg",
@@ -154,21 +153,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Chain Replacement & Adjustment", description: " Replace worn chains and ensure proper tension."),
+          title: "Chain Replacement & Adjustment", description: "Replace worn chains and ensure proper tension.", price: 650),
       Subcategory(
-          title: "Cassette & Chainring Replacement",
-          description: " Upgrade or replace worn cassette and chainrings. "),
+          title: "Cassette & Chainring Replacement", description: "Upgrade or replace worn cassette and chainrings.", price: 800),
       Subcategory(
-          title: "Bottom Bracket Service", description: "  Maintain smooth pedaling with proper bottom bracket service."),
-     
+          title: "Bottom Bracket Service", description: "Maintain smooth pedaling with proper bottom bracket service.", price: 950),
     ],
-    
   ),
   Product(
     categoryTitle: 'General Maintenance',
-    title: "Light Repair & Replacement ",
-    description:
-        "Optimize your bike's performance. We offer essential checkups and adjustments.",
+    title: "Bike Tune-Up",
+    description: "Optimize your bike's performance. We offer essential checkups and adjustments.",
     imagePaths: [
       "assets/images/dr1.jpg",
       "assets/images/dr2.jpg",
@@ -186,21 +181,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Tire Checks & Adjustments", description: " Ensure proper inflation and alignment for a smooth ride."),
+          title: "Tire Checks & Adjustments", description: "Ensure proper inflation and alignment for a smooth ride.", price: 500),
       Subcategory(
-          title: "Gear Adjustment & Derailleur Tuning",
-          description: " Fine-tune your gears for seamless shifting. "),
+          title: "Gear Adjustment & Derailleur Tuning", description: "Fine-tune your gears for seamless shifting.", price: 600),
       Subcategory(
-          title: "Air Pressure Check & Inflation", description: "Maintain optimal tire pressure for safety and performance."),
-     
+          title: "Air Pressure Check & Inflation", description: "Maintain optimal tire pressure for safety and performance.", price: 400),
     ],
-    
   ),
-   Product(
+  Product(
     categoryTitle: 'Components',
-    title: "Light Repair & Replacement ",
-    description:
-        "Maintain optimal component function. We service shifters, derailleurs, and headsets.",
+    title: "Component Replacement",
+    description: "Maintain optimal component function. We service shifters, derailleurs, and headsets.",
     imagePaths: [
       "assets/images/dr1.jpg",
       "assets/images/dr2.jpg",
@@ -218,21 +209,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Shifter & Derailleur Adjustment", description: "  Fine-tune your shifters and derailleurs for smooth gear changes."),
+          title: "Shifter & Derailleur Adjustment", description: "Fine-tune your shifters and derailleurs for smooth gear changes.", price: 700),
       Subcategory(
-          title: "Headset Adjustment",
-          description: " Eliminate headset play for a comfortable and precise ride. "),
+          title: "Headset Adjustment", description: "Eliminate headset play for a comfortable and precise ride.", price: 500),
       Subcategory(
-          title: "Pedal Service ", description: "Maintain smooth pedaling with proper pedal service"),
-     
+          title: "Pedal Service", description: "Maintain smooth pedaling with proper pedal service.", price: 450),
     ],
-    
   ),
   Product(
     categoryTitle: 'Safety',
-    title: "Light Repair & Replacement ",
-    description:
-        "Ride with confidence. We offer essential safety checks and installations.",
+    title: "Safety Check",
+    description: "Ride with confidence. We offer essential safety checks and installations.",
     imagePaths: [
       "assets/images/dr1.jpg",
       "assets/images/dr2.jpg",
@@ -250,21 +237,17 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Brake System Safety Check", description: " Ensure your brakes function properly for safe stopping."),
+          title: "Brake System Safety Check", description: "Ensure your brakes function properly for safe stopping.", price: 700),
       Subcategory(
-          title: "Reflective Gear Installation",
-          description: " Increase visibility with reflective gear installation "),
+          title: "Reflective Gear Installation", description: "Increase visibility with reflective gear installation.", price: 500),
       Subcategory(
-          title: "Helmet Inspection & Fitting  ", description: " Get a helmet inspection and proper fit for optimal protection"),
-     
+          title: "Helmet Inspection & Fitting", description: "Get a helmet inspection and proper fit for optimal protection.", price: 600),
     ],
-    
   ),
   Product(
     categoryTitle: 'Accessories',
-    title: "Light Repair & Replacement ",
-    description:
-        "Customize your ride. We offer installation for essential accessories.",
+    title: "Accessory Installation",
+    description: "Customize your ride. We offer installation for essential accessories.",
     imagePaths: [
       "assets/images/dr1.jpg",
       "assets/images/dr2.jpg",
@@ -282,25 +265,14 @@ final List<Product> products = [
     rate: 4.8,
     subcategories: [
       Subcategory(
-          title: "Bike Rack Installation", description: " Transport your bike conveniently with a bike rack installation."),
+          title: "Bike Rack Installation", description: "Transport your bike conveniently with a bike rack installation.", price: 900),
       Subcategory(
-          title: "Lock Installation",
-          description: " Enhance bike security with a professionally installed lock. "),
+          title: "Lock Installation", description: "Enhance bike security with a professionally installed lock.", price: 400),
       Subcategory(
-          title: "Fenders & Mudguards Installation ", description: " Stay protected from the elements with fender and mudguard installation"),
-     
+          title: "Fenders & Mudguards Installation", description: "Stay protected from the elements with fender and mudguard installation.", price: 600),
     ],
-    
   ),
-  
-  
 ];
-
-
-
-
-
-
 
 
 

@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:quickfix/Screens/Home_Screen/home_screen.dart';
+import 'package:quickfix/models/product.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:quickfix/Screens/Request%20Service%20Screen/components/nearest_service_component.dart';
 
 import 'map_screen.dart';
 
 class NearestShopsScreen extends StatefulWidget {
-  const NearestShopsScreen({Key? key}) : super(key: key);
+    final List<Subcategory> selectedServices;
+  final double totalPrice;
+  const NearestShopsScreen({Key? key, required this.selectedServices, required this.totalPrice}) : super(key: key);
 
   @override
   State<NearestShopsScreen> createState() => _NearestShopsScreenState();
@@ -29,6 +32,7 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
   void initState() {
     super.initState();
     _useSavedLocation();
+ 
   }
 
   void _useSavedLocation() async {
@@ -183,6 +187,8 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
                     workerName: shop['workerName'],
                     phoneNumber: shop['phone'],
                     mechanicAddress: shop['address'],
+                    selectedServices: widget.selectedServices,
+                    totalPrice: widget.totalPrice,
                     
                   )));
                 },
