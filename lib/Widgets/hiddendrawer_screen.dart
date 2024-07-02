@@ -3,6 +3,7 @@ import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:quickfix/Screens/Category_Screen/category.dart';
 import 'package:quickfix/Screens/Home_Screen/home_screen.dart';
 import 'package:quickfix/Screens/Authentication_Screen/login_Screen.dart';
+import 'package:quickfix/Screens/Orders%20Screen/order_Screen.dart';
 import 'package:quickfix/Screens/main_screen.dart';
 import 'package:quickfix/Screens/profile_screen.dart';
 import 'package:quickfix/Screens/profilesetting-screen.dart';
@@ -45,7 +46,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   }
 
   List<ScreenHiddenDrawer> _pages = [];
-  final myTextStyle = TextStyle(
+  final myTextStyle = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: Colors.white,
@@ -59,35 +60,44 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
         ItemHiddenMenu(
           name: "HomePage",
           baseStyle: myTextStyle,
-          selectedStyle: TextStyle(),
-          colorLineSelected: Color.fromARGB(255, 27, 111, 97),
+          selectedStyle: const TextStyle(),
+          colorLineSelected: const Color.fromARGB(255, 27, 111, 97),
         ),
-        HomeScreen(),
+        const HomeScreen(),
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
           name: "Profile",
           baseStyle: myTextStyle,
-          selectedStyle: TextStyle(),
-          colorLineSelected: Color.fromARGB(255, 27, 111, 97),
+          selectedStyle: const TextStyle(),
+          colorLineSelected: const Color.fromARGB(255, 27, 111, 97),
         ),
-        ProfileScreen(),
+        const ProfileScreen(),
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
           name: "Categories",
           baseStyle: myTextStyle,
-          selectedStyle: TextStyle(),
-          colorLineSelected: Color.fromARGB(255, 27, 111, 97),
+          selectedStyle: const TextStyle(),
+          colorLineSelected: const Color.fromARGB(255, 27, 111, 97),
         ),
         CategoryScreen(),
+      ),
+        ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "Orders",
+          baseStyle: myTextStyle,
+          selectedStyle: const TextStyle(),
+          colorLineSelected: const Color.fromARGB(255, 27, 111, 97),
+        ),
+        const OrderScreen(),
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
           name: "Logout",
           baseStyle: myTextStyle,
-          selectedStyle: TextStyle(),
-          colorLineSelected: Color.fromARGB(255, 27, 111, 97),
+          selectedStyle: const TextStyle(),
+          colorLineSelected: const Color.fromARGB(255, 27, 111, 97),
         ),
         LogoutScreen(handleLogout: handleLogout),
       ),
@@ -98,17 +108,17 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
       screens: _pages,
-      backgroundColorAppBar: Color.fromARGB(255, 27, 111, 97),
-      backgroundColorMenu: Color.fromARGB(210, 85, 148, 133),
+      backgroundColorAppBar: const Color.fromARGB(255, 27, 111, 97),
+      backgroundColorMenu: const Color.fromARGB(210, 85, 148, 133),
       initPositionSelected: 0,
       isTitleCentered: true,
       slidePercent: 60,
-      leadingAppBar: Icon(
+      leadingAppBar: const Icon(
         Icons.menu,
         color: Colors.white,
       ),
       styleAutoTittleName:
-          TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     );
   }
 }

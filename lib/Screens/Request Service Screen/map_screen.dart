@@ -148,7 +148,7 @@ Future<void> _storeData() async {
     String? userName = user.displayName; // Assuming username is stored in displayName
     String userId = user.uid; // Get the unique user ID
 
-    // Access Firestore collection
+
     CollectionReference userOrders = FirebaseFirestore.instance
         .collection('requestedorders')
         .doc(userId) // Use user's UID as document ID
@@ -160,13 +160,13 @@ Future<void> _storeData() async {
       'userName': userName, // Store the fetched username
       'selectedServices': widget.selectedServices?.map((service) => service.toMap()).toList(),
       'totalPrice': widget.totalPrice,
-      'timestamp': FieldValue.serverTimestamp(), // Add a timestamp field for order time
+      'timestamp': FieldValue.serverTimestamp(), 
     }).then((value) {
-      Navigator.of(context).pop(); // Close loading dialog
-      showSuccessDialog(context); // Show success dialog
+      Navigator.of(context).pop(); 
+      showSuccessDialog(context); 
       print("Data added successfully");
     }).catchError((error) {
-      Navigator.of(context).pop(); // Close loading dialog
+      Navigator.of(context).pop();
       print("Failed to add data: $error");
     });
   } else {

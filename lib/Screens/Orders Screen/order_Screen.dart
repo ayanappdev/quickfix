@@ -24,6 +24,7 @@ class _OrderScreenState extends State<OrderScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           children: [
+            SizedBox(height: 15,),
             ProfileIndicatorsWidget(
               children: [
                 IndicatorWidget(
@@ -67,7 +68,7 @@ class _OrderScreenState extends State<OrderScreen> {
           ],
         ),
       ),
-      appBar: AppBar(),
+   
     );
   }
 }
