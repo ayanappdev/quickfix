@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quickfix/Screens/Orders%20Screen/Components/order_card_widget.dart';
 import 'package:quickfix/Screens/Request%20Service%20Screen/components/nearest_service_component.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -24,16 +25,15 @@ class UnderProcessingOrderScreen extends StatelessWidget {
             return  ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) {
-                return  Padding(
+                return  const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Skeletonizer(
                     child: NearestServiceComponent(
                       shopName: "Loading...",
                       shopAddress: "Loading...",
-                      openHours: "Loading...",
-                      closingHours: "Loading...",
-                      duration: "Loading...",
+                                         duration: "Loading...",
                       distance: "Loading...",
+                      services: "loading....",
                 
                     ),
                   ),
@@ -56,20 +56,18 @@ class UnderProcessingOrderScreen extends StatelessWidget {
             itemCount: orders.length,
             itemBuilder: (context, index) {
               var order = orders[index];
-              return ListTile(
-                title: Text(order['totalPrice'].toString()),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                 
-                    Text('Price: ${order['totalPrice']}'),
-                    Text('Total Price: ${order['totalPrice']}'),
-                    Text('Timestamp: ${order['timestamp']}'),
-                    Text('User ID: ${order['userId']}'),
-                    Text('User Name: ${order['userName']}'),
-                  ],
-                ),
-              );
+              return OrderCardWidget(
+  orderId: order["userId"] ?? "",
+  customerName: order['workerName'] ?? "",
+  customerContact: order["workerName"] ?? "",
+  vehicleDetails: 'Toyota Corolla 2020',
+  serviceRequested: order["selectedServices"][0]["title"],
+
+  orderDate: order["date"] ?? "",
+  location: order["shopAddress"] ?? "",
+  estimatedCost: order["totalPrice"] ?? "",
+ latitude: order["shopLat"] ?? "", longitude: order["shopLng"] ?? "",
+);
             },
           );
         },

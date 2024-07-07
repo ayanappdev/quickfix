@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quickfix/Screens/Orders%20Screen/Components/indicator_widget.dart';
+import 'package:quickfix/Screens/Orders%20Screen/Components/profile_indicator_widget.dart';
 import 'package:quickfix/Screens/Orders%20Screen/Screens/completed_orders.dart';
 import 'package:quickfix/Screens/Orders%20Screen/Screens/requested_orders.dart';
 import 'package:quickfix/Screens/Orders%20Screen/Screens/under_processing_orders.dart';
-import 'package:quickfix/Screens/Orders%20Screen/indicator_widget.dart';
-import 'package:quickfix/Screens/Orders%20Screen/profile_indicator_widget.dart';
+
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});

@@ -120,6 +120,24 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
     }
     return RouteData(0, 0);
   }
+    String formatDuration(int seconds) {
+      int hours = seconds ~/ 3600;
+      int minutes = (seconds % 3600) ~/ 60;
+      String formattedDuration = '';
+      if (hours > 0) {
+        formattedDuration += '${hours}h ';
+      }
+      if (minutes > 0 || hours > 0) {
+        formattedDuration += '${minutes}m';
+      }
+      return formattedDuration;
+    }
+
+    String formatDistance( meters) {
+      double kilometers = meters / 1000;
+      return '${kilometers.toStringAsFixed(2)} km';
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -148,10 +166,9 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
                     child: NearestServiceComponent(
                       shopName: "Loading...",
                       shopAddress: "Loading...",
-                      openHours: "Loading...",
-                      closingHours: "Loading...",
+                 
                       duration: "Loading...",
-                      distance: "Loading...",
+                      distance: "Loading...", services: "Loading...",
                 
                     ),
                   ),
@@ -167,6 +184,8 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
               child: Text('No shops available'),
             );
           }
+
+          
 
           return ListView.builder(
             itemCount: data.size,
@@ -195,10 +214,10 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
                 child: NearestServiceComponent(
                   shopName: shop['shopName'] ?? 'Unknown',
                   shopAddress: shop['address'] ?? 'Unknown',
-                  openHours: shop['openHours'] ?? 'Unknown',
-                  closingHours: shop['closingHours'] ?? 'Unknown',
-                  duration: '${routeData.durationInSeconds} seconds',
-                  distance: '${routeData.distanceInMeters} meters',
+              
+                  duration: formatDuration(routeData.durationInSeconds),
+                  distance: formatDistance(routeData.distanceInMeters),
+                  services: shop['services'] ?? "Unknown",
                
                 ),
               );

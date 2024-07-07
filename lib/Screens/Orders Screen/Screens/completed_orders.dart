@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quickfix/Screens/Orders%20Screen/Components/order_card_widget.dart';
 
 class CompletedOrderScreen extends StatelessWidget {
   const CompletedOrderScreen({Key? key}) : super(key: key);
@@ -36,20 +37,18 @@ class CompletedOrderScreen extends StatelessWidget {
             itemCount: orders.length,
             itemBuilder: (context, index) {
               var order = orders[index];
-              return ListTile(
-                title: Text(order['totalPrice'].toString()),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                 
-                    Text('Price: ${order['totalPrice']}'),
-                    Text('Total Price: ${order['totalPrice']}'),
-                    Text('Timestamp: ${order['timestamp']}'),
-                    Text('User ID: ${order['userId']}'),
-                    Text('User Name: ${order['userName']}'),
-                  ],
-                ),
-              );
+              return OrderCardWidget(
+  orderId: order["userId"] ?? "",
+  customerName: order['workerName'] ?? "",
+  customerContact: order["workerName"] ?? "",
+  vehicleDetails: 'Toyota Corolla 2020',
+  serviceRequested: order["selectedServices"][0]["title"],
+
+  orderDate: order["date"] ?? "",
+  location: order["shopAddress"] ?? "",
+  estimatedCost: order["totalPrice"] ?? "",
+ latitude: order["shopLat"] ?? "", longitude: order["shopLng"] ?? "",
+);
             },
           );
         },

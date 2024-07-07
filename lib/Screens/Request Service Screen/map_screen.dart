@@ -140,27 +140,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 Future<void> _storeData() async {
   showLoadingDialog(context);
 
-  // Fetch the current user from Firebase Authentication
   final user = FirebaseAuth.instance.currentUser;
 
   if (user != null) {
-    // User is authenticated, fetch the username and user ID
-    String? userName = user.displayName; // Assuming username is stored in displayName
-    String userId = user.uid; // Get the unique user ID
+
+    String? userName = user.displayName; 
+    String userId = user.uid; 
 
 
     CollectionReference userOrders = FirebaseFirestore.instance
         .collection('requestedorders')
-        .doc(userId) // Use user's UID as document ID
-        .collection('orders'); // Subcollection 'orders' under user's document
+        .doc(userId) 
+        .collection('orders'); 
 
-    // Add data to Firestore using .add() to generate a new document ID
     await userOrders.add({
-      'userId': userId, // Store the user ID
-      'userName': userName, // Store the fetched username
+      'userId': userId, 
+      'userName': userName, 
       'selectedServices': widget.selectedServices?.map((service) => service.toMap()).toList(),
       'totalPrice': widget.totalPrice,
       'timestamp': FieldValue.serverTimestamp(), 
+      'workerName': widget.workerName,
+      'shopLat':widget.shopLat,
+      'shopLng': widget.shopLng,
+      'shopAddress':widget.mechanicAddress,
+      'date': DateTime.now(),
+      'workerPhone':widget.phoneNumber
+      
+
     }).then((value) {
       Navigator.of(context).pop(); 
       showSuccessDialog(context); 
@@ -277,7 +283,7 @@ Future<void> _storeData() async {
           ],
         ),
         bottomSheet: MapBottomSheet(
-          distance: '${formatDistance(distanceInMeters)}',
+          distance: formatDistance(distanceInMeters),
           duration: "ETA: ${formatDuration(durationInSeconds)}",
           shopName: widget.shopName!,
           mechanicName: widget.workerName!,
