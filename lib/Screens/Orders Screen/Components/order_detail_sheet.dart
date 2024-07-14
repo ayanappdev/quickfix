@@ -14,6 +14,7 @@ class OrderDetailsSheet extends StatefulWidget {
   final String location;
   final double shopLat;
   final double shopLng;
+  final bool? viewMode;
 
   const OrderDetailsSheet({
     Key? key,
@@ -23,7 +24,7 @@ class OrderDetailsSheet extends StatefulWidget {
     required this.orderDate,
     required this.location,
     required this.shopLat,
-    required this.shopLng,
+    required this.shopLng, this.viewMode = false,
   }) : super(key: key);
 
   @override
@@ -234,7 +235,7 @@ class _OrderDetailsSheetState extends State<OrderDetailsSheet> {
             shopName: 'Shop Name', // Replace with actual shop name
             mechanicAddress: 'Mechanic Address', // Replace with actual address
             workerName: 'Worker Name', // Replace with actual worker name
-            phoneNumber: '1234567890', // Replace with actual phone number
+            phoneNumber: '1234567890', 
             selectedServices: [], // Replace with actual selected services if needed
             totalPrice: 0.0, // Replace with actual total price
           ),
