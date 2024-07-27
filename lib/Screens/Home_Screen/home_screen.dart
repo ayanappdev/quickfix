@@ -115,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  
       backgroundColor: kscaffoldColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -123,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HomeAppBar(),
+                // const HomeAppBar(),
                 const SizedBox(height: 20),
                 const SearchField(),
                 const SizedBox(height: 20),
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                   ),
-                  itemCount: 3,
+                  itemCount: 4,
                   itemBuilder: (context, index) {
                     return ProductCard(product: products[index]);
                   },

@@ -108,7 +108,6 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
       } else {
         print('Failed to fetch route data: ${response.statusCode}');
         print('Response body: ${response.body}');
-        // Handle specific error cases based on status code
         if (response.statusCode == 404) {
           print('No routable point found near specified coordinates.');
           // Inform user or retry logic
@@ -125,10 +124,10 @@ class _NearestShopsScreenState extends State<NearestShopsScreen> {
       int minutes = (seconds % 3600) ~/ 60;
       String formattedDuration = '';
       if (hours > 0) {
-        formattedDuration += '${hours}h ';
+        formattedDuration += '${hours} hour';
       }
       if (minutes > 0 || hours > 0) {
-        formattedDuration += '${minutes}m';
+        formattedDuration += '${minutes} min';
       }
       return formattedDuration;
     }

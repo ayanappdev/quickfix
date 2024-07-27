@@ -67,26 +67,26 @@ class ProductScreen extends StatelessWidget {
             top: 50,
             left: 16,
             child: CircleAvatar(
-              backgroundColor: Colors.green,
+              backgroundColor: Color.fromARGB(255, 38, 119, 78),
               child: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
           ),
-          Positioned(
-            top: 50,
-            right: 16,
-            child: CircleAvatar(
-              backgroundColor: Colors.green,
-              child: IconButton(
-                icon: Icon(Ionicons.cart_outline, color: Colors.white),
-                onPressed: () {
-                  // Handle cart button press
-                },
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 50,
+          //   right: 16,
+          //   child: CircleAvatar(
+          //     backgroundColor: Colors.green,
+          //     child: IconButton(
+          //       icon: Icon(Ionicons.cart_outline, color: Colors.white),
+          //       onPressed: () {
+          //         // Handle cart button press
+          //       },
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

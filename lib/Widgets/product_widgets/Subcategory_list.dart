@@ -26,7 +26,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.green),
+                border: Border.all(color: Color.fromARGB(255, 38, 119, 78)),
                 borderRadius: BorderRadius.circular(8), // Adjusted radius to make it smaller
               ),
               child: ListTile(
@@ -87,25 +87,22 @@ class _SubcategoryListState extends State<SubcategoryList> {
           ),
         const SizedBox(height: 20),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
+            FloatingActionButton.extended(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NearestShopsScreen(
-                              selectedServices: selectedServices,
-                              totalPrice: totalPrice,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NearestShopsScreen(
+                      selectedServices: selectedServices,
+                      totalPrice: totalPrice,
+                    ),
+                  ),
+                );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green, // Button color
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: const Text(
+              backgroundColor: Color.fromARGB(255, 38, 119, 78),
+              label: const Text(
                 "Request a Service",
                 style: TextStyle(
                   fontSize: 16,
@@ -114,15 +111,14 @@ class _SubcategoryListState extends State<SubcategoryList> {
                 ),
               ),
             ),
-            const SizedBox(width: 5),
-            FloatingActionButton(
+            FloatingActionButton.extended(
               onPressed: () {
-         
+                // Handle button press
               },
-             
-              child: Text(
-                                totalPrice.toString(),
-                // "Total Price: $totalPrice PKR (${selectedServices.length})",
+              backgroundColor: Color.fromARGB(255, 38, 119, 78),
+              icon: const Icon(Icons.shopping_cart),
+              label: Text(
+                "Items: ${selectedServices.length} | PKR $totalPrice",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
