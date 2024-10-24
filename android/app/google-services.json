@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1054436991649",
-    "project_id": "quick-fix-b2d8d",
-    "storage_bucket": "quick-fix-b2d8d.appspot.com"
+    "project_number": "231033188701",
+    "project_id": "reserve-eat",
+    "storage_bucket": "reserve-eat.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1054436991649:android:828b88b26919d1a2d486e0",
+        "mobilesdk_app_id": "1:231033188701:android:2b06e77c2fb61d8ad7b8b4",
         "android_client_info": {
-          "package_name": "com.example.quickfix"
+          "package_name": "com.example.blazebit"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB7zzQehNvR_KD7Fh-l8bYxBHkKk3MD3vw"
+          "current_key": "AIzaSyBCQ3djojEykESYx7OsNxCBf45etjHyOYo"
         }
       ],
       "services": {

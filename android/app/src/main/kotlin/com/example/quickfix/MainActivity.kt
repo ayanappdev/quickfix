@@ -1,4 +1,4 @@
-package com.example.quickfix
+package com.example.blazebit
 
 import io.flutter.embedding.android.FlutterActivity
 

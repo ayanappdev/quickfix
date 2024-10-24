@@ -1,46 +1,30 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:quickfix/Screens/Category_Screen/Beauty_screen.dart';
-import 'package:quickfix/Screens/Category_Screen/Mobile_screen.dart';
-import 'package:quickfix/Screens/Category_Screen/Pc_screen.dart';
-import 'package:quickfix/Screens/Category_Screen/Shoes_screen.dart';
-import 'package:quickfix/Screens/Category_Screen/category.dart';
-import 'package:quickfix/Screens/Orders%20Screen/order_Screen.dart';
-import 'package:quickfix/Screens/splash_screen.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+import 'splash_screen.dart'; // Import the SplashScreen file
+// Import the MyLogin widget
+import 'package:firebase_core/firebase_core.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();  
   try {
     await Firebase.initializeApp(
-        options: const FirebaseOptions(
-            apiKey: "AIzaSyANqBAVbgYpao3nK-TIkNdIiK22Pmwnjc4",
-            appId: "1:1054436991649:web:78643b0c5f80ba08d486e0",
-            messagingSenderId: "1054436991649",
-            projectId: "quick-fix-b2d8d"));
-    print("successfully connected");
+      options: FirebaseOptions(
+        apiKey: "AIzaSyBCQ3djojEykESYx7OsNxCBf45etjHyOYo",
+        appId: "1:231033188701:android:2b06e77c2fb61d8ad7b8b4",
+messagingSenderId: "231033188701",
+        projectId: "reserve-eat",
+      ),
+    );
+    print('Firebase connected successfully');
+    runApp(MyApp());
   } catch (e) {
-    // ignore: prefer_interpolation_to_compose_strings
-    debugPrint("Errrorrrrrrrrrrrr ------------->>>>>>> $e");
+    print('Error initializing Firebase: $e');
   }
-
-  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
+      title: 'ReservEat',
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-      routes: {
-        '/shoes': (context) => ShoesScreen(),
-        '/beauty': (context) => BeautyScreen(),
-        '/pc': (context) => PcScreen(),
-        '/mobile': (context) => MobileScreen(),
-        '/all_categories': (context) => CategoryScreen(),
-      },
-    );
-  }
+      home: SplashScreen());
 }
